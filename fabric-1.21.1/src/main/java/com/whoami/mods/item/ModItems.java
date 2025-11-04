@@ -26,7 +26,11 @@ public class ModItems {
         "king_coin_part_2"
     );
     
-
+    public static final Item KING_INGOT = register(
+    	new Item(new Item.Settings()),
+    	"king_ingot"
+    );
+    
     public static final Item KING_MEAT = register(
             new Item(new Item.Settings().food(
                 new FoodComponent.Builder()
