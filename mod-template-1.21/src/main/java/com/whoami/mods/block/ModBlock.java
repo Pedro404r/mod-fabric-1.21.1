@@ -1,0 +1,42 @@
+package com.whoami.mods.block;
+
+import com.whoami.mods.Mod;
+
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
+import com.whoami.mods.Mod;
+
+public class ModBlock {
+
+    public static final Block KING_COIN_BLOCK = register(
+            new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AMETHYST_BLOCK)),
+            "red_gelatine",
+            true
+    );
+
+
+    private static Block register(Block block, String name, boolean shouldRegisterItem) {
+        Identifier id = Identifier.of(Mod.MOD_ID, name);
+
+        if (shouldRegisterItem) {
+            Registry.register(Registries.ITEM, id, new BlockItem(block, new Item.Settings()));
+        }
+
+        return Registry.register(Registries.BLOCK, id, block);
+    }
+
+    public static void initialize() {
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+            entries.add(KING_COIN_BLOCK);
+        });
+    }
+}
+

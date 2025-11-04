@@ -1,0 +1,22 @@
+package com.whoami.mods.item;
+
+import com.whoami.mods.Mod;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+
+public class ModItems {
+
+    public static final Item KING_COIN = register("king_coin", new Item(new Item.Settings()));
+    public static final Item KING_COIN_PART_1 = register("king_coin_part_1", new Item(new Item.Settings()));
+    public static final Item KING_COIN_PART_2 = register("king_coin_part_2", new Item(new Item.Settings()));
+
+    private static Item register(String name, Item item) {
+        return Registry.register(Registries.ITEM, Identifier.of(Mod.MOD_ID, name), item);
+    }
+
+    public static void registerItems() {
+        Mod.LOGGER.info("registrando items");
+    }
+}
