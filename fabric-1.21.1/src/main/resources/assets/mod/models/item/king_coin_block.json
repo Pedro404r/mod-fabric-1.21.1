@@ -1,6 +1,4 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "mod:item/king_coin_block"
-    }
+  "parent": "mod:block/king_coin_block"
 }
+

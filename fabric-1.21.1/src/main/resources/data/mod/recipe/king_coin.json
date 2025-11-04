@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OOO",
+    "OFO",
+    "OOO"
+  ],
+  "key": {
+    "O": { "item": "minecraft:iron_ingot" },
+    "F": { "item": "minecraft:gold_ingot" }
+  },
+  "result": {
+    "id": "mod:king_coin",
+    "count": 1
+  }
+}
+

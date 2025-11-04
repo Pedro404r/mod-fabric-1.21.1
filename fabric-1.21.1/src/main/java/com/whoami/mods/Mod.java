@@ -26,9 +26,6 @@ public class Mod implements ModInitializer {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
                 .register((itemGroup) -> itemGroup.add(ModItems.KING_COIN_PART_2));
-    
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ModItems.KING_COIN_BLOCK));
 
         LOGGER.info("Mod inicializado com sucesso!");
     }
