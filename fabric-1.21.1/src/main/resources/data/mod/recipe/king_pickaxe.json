@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "M": { "item": "mod:king_ingot" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "mod:king_meat",
+    "count": 1
+  }
+}
+

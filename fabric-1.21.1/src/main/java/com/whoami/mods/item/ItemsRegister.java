@@ -5,11 +5,12 @@ import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.PickaxeItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class ModItems {
+public class ItemsRegister {
 
     public static final Item KING_COIN = register(
         new Item(new Item.Settings()),
@@ -30,6 +31,19 @@ public class ModItems {
     	new Item(new Item.Settings()),
     	"king_ingot"
     );
+    
+    public static final Item KING_PICKAXE = register(
+    	    new PickaxeItem(
+    	        new KingMaterial(),
+    	        new Item.Settings()
+    	    ),
+    	    "king_pickaxe"
+    	);
+    
+    public static final Item KING_SWORD = register(
+    	new Item(new Item.Settings()),
+    	"king_sword"
+    );	
     
     public static final Item KING_MEAT = register(
             new Item(new Item.Settings().food(

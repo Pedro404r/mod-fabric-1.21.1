@@ -11,7 +11,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
-public class ModBlock {
+public class BlocksRegister {
 
     public static final Block KING_COIN_BLOCK = register(
         new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.BAMBOO)),

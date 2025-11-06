@@ -1,7 +1,7 @@
 package com.whoami.mods;
 
-import com.whoami.mods.block.ModBlock;
-import com.whoami.mods.item.ModItems;
+import com.whoami.mods.block.BlocksRegister;
+import com.whoami.mods.item.ItemsRegister;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroups;
@@ -15,18 +15,30 @@ public class Mod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ModItems.registerItems();
-        ModBlock.initialize();
+        ItemsRegister.registerItems();
+        BlocksRegister.initialize();
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ModItems.KING_COIN));
+                .register((itemGroup) -> itemGroup.add(ItemsRegister.KING_COIN));
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ModItems.KING_COIN_PART_1));
+                .register((itemGroup) -> itemGroup.add(ItemsRegister.KING_COIN_PART_1));
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ModItems.KING_COIN_PART_2));
-
+                .register((itemGroup) -> itemGroup.add(ItemsRegister.KING_COIN_PART_2));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_INGOT));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK)
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_MEAT));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS)
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_PICKAXE));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS)
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_SWORD));
+        
         LOGGER.info("Mod inicializado com sucesso!");
     }
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    " M ",
+    " S "
+  ],
+  "key": {
+    "M": { "item": "mod:king_ingot" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "mod:king_sword",
+    "count": 1
+  }
+}
+

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GMG",
+    "GGG"
+  ],
+  "key": {
+    "G": { "item": "minecraft:gold_ingot" },
+    "M": { "item": "mod:king_ingot" }
+  },
+  "result": {
+    "id": "mod:king_meat",
+    "count": 1
+  }
+}
+
