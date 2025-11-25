@@ -1,17 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " M ",
-    " M ",
+    " A ",
+    " A ",
     " S "
   ],
   "key": {
-    "M": { "item": "mod:king_ingot" },
+    "A": { "id": "mod:aether_ingot" },
     "S": { "item": "minecraft:stick" }
   },
   "result": {
-    "item": "mod:king_sword",
+    "id": "mod:monarch_sword",
     "count": 1
   }
 }
-

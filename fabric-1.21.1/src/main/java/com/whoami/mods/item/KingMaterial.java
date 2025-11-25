@@ -1,13 +1,15 @@
 package com.whoami.mods.item;
 
 import net.minecraft.block.Block;
-
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 
 public class KingMaterial implements ToolMaterial {
+
+	private static Ingredient repairIngredient;
+
 	@Override
 	public int getDurability() {
 		return 455;
@@ -30,7 +32,10 @@ public class KingMaterial implements ToolMaterial {
 	
 	@Override
 	public Ingredient getRepairIngredient() {
-		return Ingredient.ofItems(ItemsRegister.KING_INGOT);
+		if (repairIngredient == null) {
+            repairIngredient = Ingredient.ofItems(ItemsRegister.AETHER_INGOT);
+        }
+        return repairIngredient;
 	}
 
 	@Override

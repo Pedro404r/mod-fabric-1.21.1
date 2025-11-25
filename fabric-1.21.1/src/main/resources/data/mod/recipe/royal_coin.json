@@ -10,8 +10,7 @@
     "F": { "item": "minecraft:gold_ingot" }
   },
   "result": {
-    "id": "mod:king_coin",
+    "id": "mod:royal_coin",
     "count": 1
   }
 }
-

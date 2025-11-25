@@ -17,27 +17,25 @@ public class Mod implements ModInitializer {
     public void onInitialize() {
         ItemsRegister.registerItems();
         BlocksRegister.initialize();
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ItemsRegister.KING_COIN));
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ItemsRegister.KING_COIN_PART_1));
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-                .register((itemGroup) -> itemGroup.add(ItemsRegister.KING_COIN_PART_2));
         
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_INGOT));
+				.register((itemGroup) -> itemGroup.add(ItemsRegister.ROYAL_COIN));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.AETHER_INGOT));
         
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK)
-        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_MEAT));
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.ROYAL_FEAST));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS)
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.ROYAL_COIN_BLOCK));
         
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS)
-        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_PICKAXE));
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.REGAL_PICKAXE));
         
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS)
-        		.register((itemGroup) -> itemGroup.add(ItemsRegister.KING_SWORD));
+        		.register((itemGroup) -> itemGroup.add(ItemsRegister.MONARCH_SWORD));
+        
         
         LOGGER.info("Mod inicializado com sucesso!");
     }

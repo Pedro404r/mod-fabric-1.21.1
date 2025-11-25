@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "GGG",
-    "GMG",
-    "GGG"
+    "GCG",
+    "CDC",
+    "GCG"
   ],
   "key": {
     "G": { "item": "minecraft:gold_ingot" },
-    "M": { "item": "mod:king_ingot" }
+    "C": { "item": "minecraft:coal_block" },
+    "D": { "item": "minecraft:diamond" }
   },
   "result": {
-    "id": "mod:king_meat",
+    "id": "mod:sovereign_coal",
     "count": 1
   }
 }
-

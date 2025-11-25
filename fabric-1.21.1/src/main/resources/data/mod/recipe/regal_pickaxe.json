@@ -1,17 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "MMM",
+    "AAA",
     " S ",
     " S "
   ],
   "key": {
-    "M": { "item": "mod:king_ingot" },
+    "A": { "id": "mod:aether_ingot" },
     "S": { "item": "minecraft:stick" }
   },
   "result": {
-    "item": "mod:king_meat",
+    "id": "mod:regal_pickaxe",
     "count": 1
   }
 }
-

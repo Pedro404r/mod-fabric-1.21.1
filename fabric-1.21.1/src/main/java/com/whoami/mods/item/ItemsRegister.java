@@ -1,73 +1,55 @@
 package com.whoami.mods.item;
 
 import com.whoami.mods.Mod;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ItemsRegister {
 
-    public static final Item KING_COIN = register(
-        new Item(new Item.Settings()),
-        "king_coin"
+    public static final Item AETHER_INGOT = register(
+        "aether_ingot", 
+        new Item(new Item.Settings())
     );
 
-    public static final Item KING_COIN_PART_1 = register(
-        new Item(new Item.Settings()),
-        "king_coin_part_1"
+    public static final Item MONARCH_SWORD = register(
+        "monarch_sword", 
+        new SwordItem(ToolMaterials.DIAMOND, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.DIAMOND, 3, -2.4F)))
+    );
+    
+    public static final Item REGAL_PICKAXE = register(
+        "regal_pickaxe", 
+        new PickaxeItem(ToolMaterials.DIAMOND, new Item.Settings())
     );
 
-    public static final Item KING_COIN_PART_2 = register(
-        new Item(new Item.Settings()),
-        "king_coin_part_2"
+    public static final Item ROYAL_COIN = register(
+    	"royal_coin",
+    	new Item(new Item.Settings())
     );
     
-    public static final Item KING_INGOT = register(
-    	new Item(new Item.Settings()),
-    	"king_ingot"
+    public static final Item ROYAL_COIN_BLOCK = register(
+    	"royal_coin_block",
+    	new Item(new Item.Settings())
     );
     
-    public static final Item KING_PICKAXE = register(
-    	    new PickaxeItem(
-    	        new KingMaterial(),
-    	        new Item.Settings()
-    	    ),
-    	    "king_pickaxe"
-    	);
+    public static final Item ROYAL_FEAST = register(
+        	"royal_feast",
+        	new Item(new Item.Settings()
+                .food(ModFoodComponents.ROYAL_FEAST))
+     );
     
-    public static final Item KING_SWORD = register(
-    	new Item(new Item.Settings()),
-    	"king_sword"
-    );	
     
-    public static final Item KING_MEAT = register(
-            new Item(new Item.Settings().food(
-                new FoodComponent.Builder()
-                    .nutrition(6)
-                    .saturationModifier(0.8f)
-                    .statusEffect(
-                        new StatusEffectInstance(StatusEffects.STRENGTH, 600, 1), 
-                        1.0f 
-                    )
-                    .statusEffect(
-                        new StatusEffectInstance(StatusEffects.REGENERATION, 900, 0), 
-                        1.0f
-                    )
-                    .build()
-            )),
-            "king_meat"
-        );
-
-    private static Item register(Item item, String name) {
+    
+    
+    private static Item register(String name, Item item) { 
         return Registry.register(Registries.ITEM, Identifier.of(Mod.MOD_ID, name), item);
     }
-
+    
     public static void registerItems() {
-        Mod.LOGGER.info("Registrando itens do mod");
+        Mod.LOGGER.info("Registrando todos os itens do mod");
     }
 }

@@ -1,16 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "OOO",
-    "OOO",
-    "OOO"
+    "AAA",
+    "AAA",
+    "AAA"
   ],
   "key": {
-    "O": { "item": "mod:king_coin" }
+    "A": { "id": "mod:royal_coin" }
   },
   "result": {
-    "id": "mod:king_coin_block",
+    "id": "mod:royal_coin_block",
     "count": 1
   }
 }
-
