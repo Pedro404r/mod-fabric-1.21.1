@@ -3,19 +3,60 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+// ----------------------------------------------------------------------------------
+// ⭐ INÍCIO DO GERENCIAMENTO DE VERSÃO CUSTOMIZADO
+// ----------------------------------------------------------------------------------
+
+// 1. Define o arquivo de propriedades
+def propsFile = file("gradle.properties")
+def props = new Properties()
+props.load(new FileInputStream(propsFile))
+def currentVersion = props.getProperty("mod_version")
+
+// 2. Define a versão do projeto:
+//    - Se for fornecida via linha de comando (-Pmod_version=X.X.X), usa o valor da linha de comando.
+//    - Caso contrário, usa o valor atual do gradle.properties.
+version = project.hasProperty('mod_version') ? project.getProperty('mod_version') : currentVersion
 group = project.maven_group
+
+// 3. Tarefa para AUTOMATICAMENTE INCREMENTAR a versão no gradle.properties
+task bumpVersion {
+    doLast {
+        def versionToUse = project.hasProperty('mod_version') ? project.getProperty('mod_version') : currentVersion
+        
+        // Separa a versão (ex: 1.0.5)
+        def parts = versionToUse.tokenize('.')
+        
+        // Verifica se é uma versão patch (três números)
+        if (parts.size() < 3) {
+            println "❌ Erro: A versão '${versionToUse}' não está no formato X.Y.Z. Não foi possível incrementar."
+            return
+        }
+        
+        // Incrementa o último número (patch)
+        def patch = (parts[-1] as int) + 1
+        def newVersion = parts[0] + '.' + parts[1] + '.' + patch
+
+        // Salva a nova versão no arquivo
+        props.setProperty("mod_version", newVersion)
+        props.store(new FileOutputStream(propsFile), null)
+        
+        println "🔼 Versão incrementada em gradle.properties: ${versionToUse} → ${newVersion}"
+        println "❗ Lembre-se: A próxima build (sem -Pmod_version) usará ${newVersion}."
+    }
+}
+
+// ----------------------------------------------------------------------------------
+// ⭐ FIM DO GERENCIAMENTO DE VERSÃO CUSTOMIZADO
+// ----------------------------------------------------------------------------------
 
 base {
 	archivesName = project.archives_base_name 	
 }
 
+// ... (O resto do seu código permanece igual) ...
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	// ... (repositórios) ...
 }
 
 fabricApi {
@@ -25,7 +66,7 @@ fabricApi {
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
+	// ... (dependências) ...
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -36,6 +77,7 @@ dependencies {
 }
 
 processResources {
+	// Usa a versão DEFINIDA no topo do arquivo (que pode vir do -P)
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
@@ -48,11 +90,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
+	// ... (Java configs) ...
 	withSourcesJar()
-
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
 }
@@ -73,31 +112,5 @@ publishing {
 			from components.java
 		}
 	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
+	// ... (publishing repos) ...
 }
-
-def propsFile = file("gradle.properties")
-def props = new Properties()
-props.load(new FileInputStream(propsFile))
-def version = props.getProperty("mod_version")
-
-// Incrementar o último número (patch)
-def parts = version.tokenize('.')
-def patch = (parts[-1] as int) + 1
-def newVersion = parts[0] + '.' + parts[1] + '.' + patch
-
-task bumpVersion {
-    doLast {
-        props.setProperty("mod_version", newVersion)
-        props.store(new FileOutputStream(propsFile), null)
-        println "🔼 Versão aumentada: ${version} → ${newVersion}"
-    }
-}
-

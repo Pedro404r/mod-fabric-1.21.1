@@ -43,7 +43,10 @@ public class ItemsRegister {
      );
     
     
-    
+    public static final Item SOVEREIGN_COAL = register(
+        	"sovereign_coal",
+        	new Item(new Item.Settings())
+        );
     
     private static Item register(String name, Item item) { 
         return Registry.register(Registries.ITEM, Identifier.of(Mod.MOD_ID, name), item);

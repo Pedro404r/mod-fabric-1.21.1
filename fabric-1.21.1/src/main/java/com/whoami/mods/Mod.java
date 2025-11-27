@@ -19,6 +19,9 @@ public class Mod implements ModInitializer {
         BlocksRegister.initialize();
         
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
+				.register((itemGroup) -> itemGroup.add(ItemsRegister.SOVEREIGN_COAL));
+        
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
 				.register((itemGroup) -> itemGroup.add(ItemsRegister.ROYAL_COIN));
         
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
@@ -36,6 +39,7 @@ public class Mod implements ModInitializer {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS)
         		.register((itemGroup) -> itemGroup.add(ItemsRegister.MONARCH_SWORD));
         
+
         
         LOGGER.info("Mod inicializado com sucesso!");
     }
