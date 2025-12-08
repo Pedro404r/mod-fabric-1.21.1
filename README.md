@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="assets/Banner-Mod.jpg" alt="Mod Simples de Desenvolvimento" width="1024">
+  <img src="assets/Banner-Mod.png" width="900">
 </p>
 
 
