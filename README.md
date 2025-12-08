@@ -1,8 +1,14 @@
-# 🛠️ Mod Simples de Desenvolvimento
+
+<p align="center">
+  <img src="assets/Banner-Mod.jpg" alt="Mod Simples de Desenvolvimento" width="1024">
+</p>
+
+
+#  Mod Simples de Desenvolvimento
 
 > Um projeto pessoal para o Minecraft Fabric 1.21.1 que adiciona alguns itens e blocos customizados.
 
-## ⚙️ Status
+##  Status
 
 Este mod está em **desenvolvimento ativo**.
 
@@ -12,7 +18,7 @@ Este mod está em **desenvolvimento ativo**.
 
 ---
 
-## ✨ O que Este Mod Faz
+##  O que Este Mod Faz
 
 Este mod é um *sandbox* para testes e aprendizado. Atualmente, ele adiciona:
 
@@ -21,7 +27,7 @@ Este mod é um *sandbox* para testes e aprendizado. Atualmente, ele adiciona:
 
 ---
 
-## 💾 Como Usar (Testes)
+##  Como Usar (Testes)
 
 Para testar ou debugar:
 
