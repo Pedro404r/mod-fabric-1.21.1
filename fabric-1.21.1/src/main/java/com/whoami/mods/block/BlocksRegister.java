@@ -1,7 +1,6 @@
 package com.whoami.mods.block;
 
 import com.whoami.mods.Mod;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -13,20 +12,26 @@ import net.minecraft.util.Identifier;
 
 public class BlocksRegister {
 
-    public static final Block KING_COIN_BLOCK = register(
+    // Registra o Bloco
+    public static final Block ROYAL_COIN_BLOCK = registerBlock(
         new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.BAMBOO)),
-        "king_coin_block",
-        true
+        "royal_coin_block"
     );
 
-    private static Block register(Block block, String name, boolean registerItem) {
+    // Registra o Item Block (Usado no Inventário e na classe Mod.java)
+    public static final BlockItem ROYAL_COIN_BLOCK_ITEM = registerBlockItem(ROYAL_COIN_BLOCK, "royal_coin_block");
+
+    // Método para registrar o Bloco
+    private static Block registerBlock(Block block, String name) {
         Identifier id = Identifier.of(Mod.MOD_ID, name);
-        Registry.register(Registries.BLOCK, id, block);
-        if (registerItem) {
-            BlockItem item = new BlockItem(block, new Item.Settings());
-            Registry.register(Registries.ITEM, id, item);
-        }
-        return block;
+        return Registry.register(Registries.BLOCK, id, block);
+    }
+
+    // Método para registrar o Item Block (Item que representa o Bloco)
+    private static BlockItem registerBlockItem(Block block, String name) {
+        BlockItem item = new BlockItem(block, new Item.Settings());
+        Identifier id = Identifier.of(Mod.MOD_ID, name);
+        return Registry.register(Registries.ITEM, id, item);
     }
 
     public static void initialize() {

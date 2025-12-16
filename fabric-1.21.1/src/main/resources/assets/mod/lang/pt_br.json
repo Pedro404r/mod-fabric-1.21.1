@@ -1,3 +1,9 @@
 {
-  "block.mod.king_coin_block": "Bloco Do Rei!"
-}	
+  "item.mod.sovereign_coal": "Carvão Soberano",
+  "item.mod.royal_coin": "Moeda Real",
+  "item.mod.aether_ingot": "Barra de Éter",
+  "item.mod.royal_feast": "Banquete Real",
+  "item.mod.regal_pickaxe": "Picareta Real",
+  "item.mod.monarch_sword": "Espada do Monarca",
+  "block.mod.royal_coin_block": "Bloco de Moedas Reais"
+}

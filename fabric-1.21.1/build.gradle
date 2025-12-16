@@ -1,110 +1,130 @@
 plugins {
-	id 'fabric-loom' version "${loom_version}"
+	id 'fabric-loom' version '1.7-SNAPSHOT' // Verifique se sua loom_version bate com essa ou use a variável
 	id 'maven-publish'
 }
 
 // ----------------------------------------------------------------------------------
-// ⭐ INÍCIO DO GERENCIAMENTO DE VERSÃO CUSTOMIZADO
+// ⭐ CONFIGURAÇÃO DO PROJETO
 // ----------------------------------------------------------------------------------
 
-// 1. Define o arquivo de propriedades
-def propsFile = file("gradle.properties")
-def props = new Properties()
-props.load(new FileInputStream(propsFile))
-def currentVersion = props.getProperty("mod_version")
-
-// 2. Define a versão do projeto:
-//    - Se for fornecida via linha de comando (-Pmod_version=X.X.X), usa o valor da linha de comando.
-//    - Caso contrário, usa o valor atual do gradle.properties.
-version = project.hasProperty('mod_version') ? project.getProperty('mod_version') : currentVersion
+// O Gradle carrega 'mod_version' do gradle.properties automaticamente.
+// Se você passar -Pmod_version=1.0.1 na linha de comando, ele sobrescreve automaticamente.
+version = project.mod_version
 group = project.maven_group
 
-// 3. Tarefa para AUTOMATICAMENTE INCREMENTAR a versão no gradle.properties
-task bumpVersion {
-    doLast {
-        def versionToUse = project.hasProperty('mod_version') ? project.getProperty('mod_version') : currentVersion
-        
-        // Separa a versão (ex: 1.0.5)
-        def parts = versionToUse.tokenize('.')
-        
-        // Verifica se é uma versão patch (três números)
-        if (parts.size() < 3) {
-            println "❌ Erro: A versão '${versionToUse}' não está no formato X.Y.Z. Não foi possível incrementar."
-            return
-        }
-        
-        // Incrementa o último número (patch)
-        def patch = (parts[-1] as int) + 1
-        def newVersion = parts[0] + '.' + parts[1] + '.' + patch
-
-        // Salva a nova versão no arquivo
-        props.setProperty("mod_version", newVersion)
-        props.store(new FileOutputStream(propsFile), null)
-        
-        println "🔼 Versão incrementada em gradle.properties: ${versionToUse} → ${newVersion}"
-        println "❗ Lembre-se: A próxima build (sem -Pmod_version) usará ${newVersion}."
-    }
-}
-
-// ----------------------------------------------------------------------------------
-// ⭐ FIM DO GERENCIAMENTO DE VERSÃO CUSTOMIZADO
-// ----------------------------------------------------------------------------------
-
 base {
-	archivesName = project.archives_base_name 	
+	archivesName = project.archives_base_name
 }
 
-// ... (O resto do seu código permanece igual) ...
-repositories {
-	// ... (repositórios) ...
-}
-
-fabricApi {
-	configureDataGeneration {
-		client = true
+// ----------------------------------------------------------------------------------
+// ⭐ JAVA TOOLCHAIN (Maneira moderna de definir Java 21)
+// ----------------------------------------------------------------------------------
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
 	}
+	withSourcesJar()
+}
+
+// Não é mais necessário configurar tasks.withType(JavaCompile) manualmente
+// porque o toolchain já cuida disso.
+
+// ----------------------------------------------------------------------------------
+// ⭐ DEPENDÊNCIAS
+// ----------------------------------------------------------------------------------
+
+repositories {
+	mavenCentral()
+	maven { url "https://maven.fabricmc.net/" }
+    // Adicione outros repositórios aqui
 }
 
 dependencies {
-	// ... (dependências) ...
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
+	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
 }
 
+// ----------------------------------------------------------------------------------
+// ⭐ PROCESSAMENTO DE RECURSOS (fabric.mod.json)
+// ----------------------------------------------------------------------------------
+
 processResources {
-	// Usa a versão DEFINIDA no topo do arquivo (que pode vir do -P)
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
 		expand "version": inputs.properties.version
 	}
+    // Evita erros de duplicação ao rodar o build várias vezes
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE 
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+// ----------------------------------------------------------------------------------
+// ⭐ TAREFAS CUSTOMIZADAS (Bump Version)
+// ----------------------------------------------------------------------------------
+
+task bumpVersion {
+    group = "versioning"
+    description = "Incrementa a versão PATCH no gradle.properties mantendo os comentários."
+
+    doLast {
+        def propsFile = file("gradle.properties")
+        
+        if (!propsFile.exists()) {
+            throw new GradleException("gradle.properties não encontrado!")
+        }
+
+        // Lê o arquivo linha por linha para não perder comentários
+        def lines = propsFile.readLines()
+        def newLines = []
+        def updated = false
+        def newVersion = ""
+
+        lines.each { line ->
+            // Procura a linha que começa com mod_version=
+            if (line.trim().startsWith("mod_version=")) {
+                def currentVer = line.split("=")[1].trim()
+                def parts = currentVer.tokenize('.')
+
+                if (parts.size() >= 3) {
+                    def patch = (parts[-1] as int) + 1
+                    parts[-1] = patch.toString()
+                    newVersion = parts.join('.')
+                    
+                    // Substitui a linha pela nova versão
+                    newLines.add("mod_version=${newVersion}")
+                    updated = true
+                } else {
+                    println "⚠️ Formato de versão inválido: ${currentVer}. Mantendo original."
+                    newLines.add(line)
+                }
+            } else {
+                newLines.add(line)
+            }
+        }
+
+        if (updated) {
+            propsFile.text = newLines.join("\n")
+            println "✅ Versão atualizada: ${project.version} -> ${newVersion}"
+        } else {
+            println "❌ Não foi possível encontrar ou atualizar 'mod_version' no arquivo."
+        }
+    }
 }
 
-java {
-	// ... (Java configs) ...
-	withSourcesJar()
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
-}
+// ----------------------------------------------------------------------------------
+// ⭐ PUBLICAÇÃO
+// ----------------------------------------------------------------------------------
 
 jar {
-	inputs.property "archivesName", project.base.archivesName
-
 	from("LICENSE") {
-		rename { "${it}_${inputs.properties.archivesName}"}
+		rename { "${it}_${project.base.archivesName.get()}"}
 	}
 }
 
-// configure the maven publication
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
@@ -112,5 +132,4 @@ publishing {
 			from components.java
 		}
 	}
-	// ... (publishing repos) ...
 }
