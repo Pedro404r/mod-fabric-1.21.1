@@ -1,104 +1,103 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT' // Verifique se sua loom_version bate com essa ou use a variável
-	id 'maven-publish'
+    id 'fabric-loom' version '1.7.4'
+    id 'maven-publish'
 }
 
-// ----------------------------------------------------------------------------------
-// ⭐ CONFIGURAÇÃO DO PROJETO
-// ----------------------------------------------------------------------------------
-
-// O Gradle carrega 'mod_version' do gradle.properties automaticamente.
-// Se você passar -Pmod_version=1.0.1 na linha de comando, ele sobrescreve automaticamente.
 version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+    archivesName = project.archives_base_name
 }
 
-// ----------------------------------------------------------------------------------
-// ⭐ JAVA TOOLCHAIN (Maneira moderna de definir Java 21)
-// ----------------------------------------------------------------------------------
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-	withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
 }
 
-// Não é mais necessário configurar tasks.withType(JavaCompile) manualmente
-// porque o toolchain já cuida disso.
+// ----------------------------------------------------------------------------------
+// ⭐ CONFIGURAÇÃO DO FABRIC LOOM (Data Generation)
+// ----------------------------------------------------------------------------------
+
+loom {
+    runs {
+        datagen {
+            inherit client
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=mod" 
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [ 'src/main/generated' ]
+        }
+    }
+}
 
 // ----------------------------------------------------------------------------------
-// ⭐ DEPENDÊNCIAS
+// ⭐ REPOSITÓRIOS E DEPENDÊNCIAS
 // ----------------------------------------------------------------------------------
 
 repositories {
-	mavenCentral()
-	maven { url "https://maven.fabricmc.net/" }
-    // Adicione outros repositórios aqui
+    mavenCentral()
+    maven { url "https://maven.fabricmc.net/" }
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Fabric API
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    // Fabric API (Essencial para quase tudo no Fabric)
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 // ----------------------------------------------------------------------------------
-// ⭐ PROCESSAMENTO DE RECURSOS (fabric.mod.json)
+// ⭐ PROCESSAMENTO E TAREFAS
 // ----------------------------------------------------------------------------------
 
 processResources {
-	inputs.property "version", project.version
+    inputs.property "version", project.version
 
-	filesMatching("fabric.mod.json") {
-		expand "version": inputs.properties.version
-	}
-    // Evita erros de duplicação ao rodar o build várias vezes
+    filesMatching("fabric.mod.json") {
+        expand "version": inputs.properties.version
+    }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE 
 }
 
-// ----------------------------------------------------------------------------------
-// ⭐ TAREFAS CUSTOMIZADAS (Bump Version)
-// ----------------------------------------------------------------------------------
-
 task bumpVersion {
     group = "versioning"
-    description = "Incrementa a versão PATCH no gradle.properties mantendo os comentários."
+    description = "Incrementa a versão PATCH no gradle.properties"
 
     doLast {
         def propsFile = file("gradle.properties")
-        
-        if (!propsFile.exists()) {
-            throw new GradleException("gradle.properties não encontrado!")
-        }
+        if (!propsFile.exists()) throw new GradleException("gradle.properties não encontrado!")
 
-        // Lê o arquivo linha por linha para não perder comentários
         def lines = propsFile.readLines()
         def newLines = []
         def updated = false
         def newVersion = ""
 
         lines.each { line ->
-            // Procura a linha que começa com mod_version=
             if (line.trim().startsWith("mod_version=")) {
                 def currentVer = line.split("=")[1].trim()
                 def parts = currentVer.tokenize('.')
-
                 if (parts.size() >= 3) {
                     def patch = (parts[-1] as int) + 1
                     parts[-1] = patch.toString()
                     newVersion = parts.join('.')
-                    
-                    // Substitui a linha pela nova versão
                     newLines.add("mod_version=${newVersion}")
                     updated = true
                 } else {
-                    println "⚠️ Formato de versão inválido: ${currentVer}. Mantendo original."
                     newLines.add(line)
                 }
             } else {
@@ -108,28 +107,22 @@ task bumpVersion {
 
         if (updated) {
             propsFile.text = newLines.join("\n")
-            println "✅ Versão atualizada: ${project.version} -> ${newVersion}"
-        } else {
-            println "❌ Não foi possível encontrar ou atualizar 'mod_version' no arquivo."
+            println "✅ Versão atualizada para: ${newVersion}"
         }
     }
 }
 
-// ----------------------------------------------------------------------------------
-// ⭐ PUBLICAÇÃO
-// ----------------------------------------------------------------------------------
-
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
-	}
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}"}
+    }
 }
 
 publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
-			from components.java
-		}
-	}
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
 }
