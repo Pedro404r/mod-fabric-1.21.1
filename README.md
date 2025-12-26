@@ -1,36 +1,11 @@
-
+<a href="https://www.youtube.com/playlist?list=PLKGarocXCE1H_HxOYihQMq0mlpqiUJj4L" target="_blank">
 <p align="center">
-  <img src="assets/Banner-Mod.png" width="900">
-</p>
+<img src="https://kaupenjoe.net/files/General/Minecraft/Modding/Tutorials/fabric-tutorial-image-1.png" alt="Logo" width="1000"/> 
+</p></a>
 
+# Fabric Modding Tutorials For Minecraft 1.21.X 
+This is the GitHub Repository for Kaupenjoe's Fabric Modding Tutorials For Minecraft 1.21.X
 
-#  Mod Simples de Desenvolvimento
+The Individual Tutorials are seperated into Branches for ease of access. 
 
-> Um projeto pessoal para o Minecraft Fabric 1.21.1 que adiciona alguns itens e blocos customizados.
-
-##  Status
-
-Este mod está em **desenvolvimento ativo**.
-
-* **Minecraft:** 1.21.1
-* **API:** Fabric
-* **Licença:** MIT
-
----
-
-##  O que Este Mod Faz
-
-Este mod é um *sandbox* para testes e aprendizado. Atualmente, ele adiciona:
-
-* **Novos Itens:** [Carvão soberano, Picareta Do Rei, Espada Do Rei, Comida Do Rei, E futuramente novas entidades podendo fazer trocas].
-* **Novos Blocos:** [Bloco Do Rei].
-
----
-
-##  Como Usar (Testes)
-
-Para testar ou debugar:
-
-1.  Baixe o arquivo `.jar` mais recente na aba **Releases** do repositório.
-2.  Instale o **Fabric Loader** para a versão 1.21.1.
-3.  Coloque o arquivo `.jar` do mod na sua pasta `mods/` e inicie o jogo.
+Watch the Tutorials here: <a href="https://www.youtube.com/playlist?list=PLKGarocXCE1H_HxOYihQMq0mlpqiUJj4L" target="_blank">YouTube Playlist</a>

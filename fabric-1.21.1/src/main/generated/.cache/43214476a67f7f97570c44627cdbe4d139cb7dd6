@@ -1,9 +1,0 @@
-// 1.21	2025-12-23T09:10:16.225862234	Milho Mod/Tags for minecraft:block
-239cab7f506b5a15bb9de85803813bd5e21a061a data/minecraft/tags/block/buttons.json
-972da1088e73c8b00414d1b72c1d2cc295c89d04 data/minecraft/tags/block/mineable/pickaxe.json
-325b66f3f324e9123ecfc7708bd3875e75150c5e data/minecraft/tags/block/trapdoors.json
-295e02b5dbdcd57c7fab403109122015fa85d67c data/minecraft/tags/block/walls.json
-3fef79117e81aa67c27f4929dd833a04cd141929 data/minecraft/tags/block/needs_iron_tool.json
-b7ea301e13467605b3618a3cefe83797c052b0a7 data/minecraft/tags/block/fences.json
-75064f0d19e8edee0ebe52f4aa38f2cdf14d3e65 data/minecraft/tags/block/doors.json
-4021b6127ff24a23ef0663000a7e673442f34904 data/minecraft/tags/block/pressure_plates.json

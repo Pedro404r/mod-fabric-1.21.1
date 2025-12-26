@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "net/kaupenjoe/tutorialmod/mixin/ExampleMixin": {
+      "loadWorld": "Lnet/minecraft/server/MinecraftServer;method_3735()V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "net/kaupenjoe/tutorialmod/mixin/ExampleMixin": {
+        "loadWorld": "Lnet/minecraft/server/MinecraftServer;method_3735()V"
+      }
+    }
+  }
+}
