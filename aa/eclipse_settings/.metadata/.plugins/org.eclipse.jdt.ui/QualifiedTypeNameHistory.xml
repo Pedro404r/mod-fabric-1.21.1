@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.rmi.registry.Registry"/>
+    <fullyQualifiedTypeName name="com.whoami.mods.block.ModBlocks"/>
+    <fullyQualifiedTypeName name="net.minecraft.util.Identifier"/>
+    <fullyQualifiedTypeName name="com.whoami.mods.Mod"/>
+    <fullyQualifiedTypeName name="net.minecraft.item.BlockItem"/>
+    <fullyQualifiedTypeName name="net.minecraft.item.Item"/>
+    <fullyQualifiedTypeName name="net.minecraft.block.AbstractBlock"/>
+    <fullyQualifiedTypeName name="net.minecraft.block.AbstractBlock.Settings"/>
+    <fullyQualifiedTypeName name="net.minecraft.sound.BlockSoundGroup"/>
+    <fullyQualifiedTypeName name="net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.ModifyEntries"/>
+    <fullyQualifiedTypeName name="net.minecraft.registry.Registries"/>
+    <fullyQualifiedTypeName name="net.minecraft.registry.Registry"/>
+    <fullyQualifiedTypeName name="net.minecraft.item.Item.Settings"/>
+    <fullyQualifiedTypeName name="com.whoami.mods.block.ModBlock"/>
+    <fullyQualifiedTypeName name="jdk.vm.ci.code.Register"/>
+    <fullyQualifiedTypeName name="com.whoami.mods.item.ModItems"/>
+    <fullyQualifiedTypeName name="net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents"/>
+    <fullyQualifiedTypeName name="org.apache.logging.log4j.Logger"/>
+    <fullyQualifiedTypeName name="java.lang.Module"/>
+</qualifiedTypeNameHistroy>
